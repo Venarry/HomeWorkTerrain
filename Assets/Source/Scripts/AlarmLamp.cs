@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class AlarmLamp : MonoBehaviour
 {
@@ -18,11 +19,13 @@ public class AlarmLamp : MonoBehaviour
         _startColor = _material.color;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (_alarm == null)
-            throw new MissingComponentException();
+        _alarm.AlarmVolumeChanged += OnAlarmVolumeChange;
+    }
 
+    private void OnAlarmVolumeChange()
+    {
         _material.color = Color.Lerp(_startColor, _targetColor, _alarm.VolumeProgress);
     }
 }

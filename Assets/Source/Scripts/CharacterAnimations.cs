@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class CharacterAnimations : MonoBehaviour
 {
+    private int AnimatorValueSpeed = Animator.StringToHash("Speed");
+
     private CharacterController _characterMovement;
     private Animator _animator;
 
@@ -15,6 +17,6 @@ public class CharacterAnimations : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _animator.SetFloat("Speed", _characterMovement.velocity.magnitude);
+        _animator.SetFloat(AnimatorValueSpeed, _characterMovement.velocity.magnitude);
     }
 }

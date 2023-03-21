@@ -1,20 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(Alarm))]
 public class AlarmTrigger : MonoBehaviour
 {
-    private Alarm _alarm;
-
-    private void Awake()
-    {
-        _alarm = GetComponent<Alarm>();
-    }
+    [SerializeField] private UnityEvent _alarmActivated;
+    [SerializeField] private UnityEvent _alarmDeactivated;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent(out Player player))
         {
-            _alarm.PlayAlarm();
+            _alarmActivated?.Invoke();
         }
     }
 
@@ -22,7 +18,7 @@ public class AlarmTrigger : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out Player player))
         {
-            _alarm.StopAlarm();
+            _alarmDeactivated?.Invoke();
         }
     }
 }
